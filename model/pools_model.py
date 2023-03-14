@@ -1,0 +1,30 @@
+from typing import Any, List
+from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from container import Container
+from model.base_dao import BaseDao
+from model.bsom_object import PyObjectId
+from bson.objectid import ObjectId
+
+class QueryPoolModel(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    query_num: int
+    query_id: PyObjectId
+    pool_list: List[str]
+    
+    class Config:
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+
+@Container.register_dao('query_pool_model')
+class QueryPoolDao(BaseDao):
+    database = None
+
+    @classmethod
+    def find_query_by_query_num(cls, query_num:int) -> Any:
+        if cls.database != None:
+            return cls.database.find_one({"query_num": query_num})
+        else:
+            raise Exception("Dao Not propertly initialized")
+    
