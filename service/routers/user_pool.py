@@ -18,8 +18,9 @@ def get_by_user_id(user_id:str):
 
 @router.post("/update")
 def update_user_pool_juicios(juicio:JuicioDto):
+    print(juicio)
+    response = UserPoolDao.update(juicio.user_pool_id, {f"juicios.{juicio.juicio_idx}.user_list":juicio.user_list, "last_idx":juicio.juicio_idx})
     
-    response = UserPoolDao.update(juicio.user_pool_id, {f"juicios.{juicio.juicio_idx}.user_list":juicio.user_list})
     print(response.modified_count)
     if response.modified_count > 0:
         return {"ok": True}

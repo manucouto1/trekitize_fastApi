@@ -21,6 +21,7 @@ class PoolQuery(BaseModel):
 class UserPoolModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     user: PyObjectId
+    last_idx: Optional[int] = None
     juicios: List[PoolQuery]
     
     class Config:
