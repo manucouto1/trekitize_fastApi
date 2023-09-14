@@ -1,12 +1,11 @@
 index_path='./wt2g_index/data.properties'
 
 import pyterrier as pt
+
+from container import Container
 from fastapi import APIRouter, Depends
 from service.dtos.docs_dto import DocDto
 import os
-
-if not pt.started():
-        pt.init()
 
 router = APIRouter(
     prefix="/document",
@@ -16,8 +15,9 @@ router = APIRouter(
 
 @router.get('/one/{docno}')
 def get_doc(docno:str):
-    index = pt.IndexFactory.of(index_path)
-    meta = index.getMetaIndex()
+    print(docno)
+    # index = pt.IndexFactory.of(index_path)
+    meta = Container.index.getMetaIndex()
     
     doc_id = meta.getDocument("docno", docno)
     text = meta.getItem("text", doc_id)
@@ -25,13 +25,14 @@ def get_doc(docno:str):
 
 @router.post('/many')
 def get_docs(docs:DocDto = Depends()):
-    index = pt.IndexFactory.of(index_path)
-    meta = index.getMetaIndex()
+    # index = pt.IndexFactory.of(index_path)
+    meta = Container.index.getMetaIndex()
     
     response = []
     for docno in docs.docs:
         doc_id = meta.getDocument("docno", docno)
-        text = meta.getItem("text", doc_id)
-        response.append(text)
+        if doc_id > 0:
+            text = meta.getItem("text", doc_id)
+            response.append(text)
         
     return list(zip(docs.docs, response))
