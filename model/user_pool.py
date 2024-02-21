@@ -32,6 +32,16 @@ class UserPoolDao(BaseDao):
         else:
             raise Exception("Dao Not propertly initialized")
         
+        
+    @classmethod
+    def find_by_userid_and_querynum(cls, user_id:str, query_no:int) -> Any:
+        if cls.database != None:
+            query_str = {'_id':0,  f'juicios.{query_no}':1,  f'juicios.user_rels':1, f'juicios.user_posi':1}
+            print(query_str)
+            return cls.database.find_one(filter={"user": str(user_id)}, projection=query_str)
+        else:
+            raise Exception("Dao Not propertly initialized")
+        
     # @classmethod
     # def find_by_userid_query(cls, user_id:str, query_num:int) -> Any:
     #     if cls.database != None:

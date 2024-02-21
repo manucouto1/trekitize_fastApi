@@ -3,9 +3,9 @@ from fastapi import APIRouter
 
 from service.dtos.juicios_dto import JuicioDto
 from service.dtos.user_pool_dto import UserPoolDto
-from model.user_pool import UserPoolModel, UserPoolDao
+from model.user_pool import QueryJuiciosModel, UserPoolModel, UserPoolDao
 from fastapi.encoders import jsonable_encoder
-
+from rich import print
 import logging
 
 router = APIRouter(
@@ -17,6 +17,15 @@ router = APIRouter(
 @router.get("/by/{user_id}", response_model=UserPoolModel)
 def get_by_user_id(user_id:str):
     return UserPoolModel(**UserPoolDao.find_by_userid(user_id))
+
+@router.get("/by2/{user_id}/{queryNum}", response_model=QueryJuiciosModel)
+def get_by_user_id(user_id:str, queryNum:int):
+    doc = UserPoolDao.find_by_userid_and_querynum(user_id, queryNum)
+    
+    if doc is not None:
+        print(QueryJuiciosModel(**doc['juicios'][queryNum]))
+        return QueryJuiciosModel(**doc['juicios'][queryNum])
+    
 
 
 @router.get("/juicios/by/{user_id}")
