@@ -17,6 +17,9 @@ router = APIRouter(
 def get_queries():
     return list(QueryDao.findAll())
 
-@router.get('/{querie_idx}', response_model=QueryModel)
-def get_querie(querie_idx:int):
-    return QueryDao.find_query_by_query_num(querie_idx)
+@router.get('/one/{query_id}', response_model=QueryModel)
+def get_querie(query_id:str):
+    print(query_id)
+    data = QueryDao.findById(query_id)
+    print(data)
+    return data

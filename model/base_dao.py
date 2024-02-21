@@ -34,8 +34,9 @@ class BaseDao:
     @classmethod
     def create(cls, entity:Any) -> Any:
         if cls.database != None:
-            del entity.id
             entity = entity.dict()
+            if "id" in entity:
+                del entity["id"]
             new_entity = cls.database.insert_one(entity)
             return new_entity
         else:

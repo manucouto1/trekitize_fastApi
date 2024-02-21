@@ -1,19 +1,21 @@
-from typing import Any, List
-from pydantic import BaseModel
+from typing import Annotated, Any, List, Optional
 from pydantic import BaseModel, Field
 from container import Container
 from model.base_dao import BaseDao
 from model.bsom_object import PyObjectId
 from bson.objectid import ObjectId
 
+class DocModel(BaseModel):
+    doc_id:str
+    text:str
+
 class QueryPoolModel(BaseModel):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
-    query_num: int
-    query_id: PyObjectId
-    pool_list: List[str]
+    id: PyObjectId = Field(alias="_id", default=None)
+    query_id: Optional[PyObjectId] = None
+    pool_list: List[DocModel]
     
     class Config:
-        allow_population_by_field_name = True
+        populate_by_name = True
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
 

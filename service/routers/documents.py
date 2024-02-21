@@ -1,6 +1,5 @@
-index_path='./wt2g_index/data.properties'
 
-import pyterrier as pt
+from qdrant_client.http import models
 
 from container import Container
 from fastapi import APIRouter, Depends
@@ -12,16 +11,6 @@ router = APIRouter(
     tags=["document"],
     responses={404: {"description": "Not found"}},
 )
-
-@router.get('/one/{docno}')
-def get_doc(docno:str):
-    print(docno)
-    # index = pt.IndexFactory.of(index_path)
-    meta = Container.index.getMetaIndex()
-    
-    doc_id = meta.getDocument("docno", docno)
-    text = meta.getItem("text", doc_id)
-    return text
 
 @router.post('/many')
 def get_docs(docs:DocDto = Depends()):

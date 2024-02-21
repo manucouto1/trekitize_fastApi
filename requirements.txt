@@ -2,3 +2,5 @@ fastapi
 uvicorn[standard]
 pymongo[srv]
 python-terrier
+qdrant-client
+PyPDF2

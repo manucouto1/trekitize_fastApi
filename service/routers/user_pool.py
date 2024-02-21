@@ -3,7 +3,7 @@ from fastapi import APIRouter
 
 from service.dtos.juicios_dto import JuicioDto
 from service.dtos.user_pool_dto import UserPoolDto
-from model.user_pool import PoolQuery, UserPoolModel, UserPoolDao
+from model.user_pool import UserPoolModel, UserPoolDao
 from fastapi.encoders import jsonable_encoder
 
 import logging
@@ -38,8 +38,8 @@ def update_user_pool_filtered(user_id:str, query_idx:int):
 def update_user_pool_juicios(juicio:JuicioDto):
     logging.info(jsonable_encoder(juicio))
     response = UserPoolDao.update(juicio.user_pool_id, {
-        f"juicios.{juicio.juicio_idx}.user_list":juicio.user_list, 
-        f"juicios.{juicio.juicio_idx}.grel_list":juicio.grel_list, 
+        f"juicios.{juicio.juicio_idx}.user_rels":juicio.user_rels, 
+        f"juicios.{juicio.juicio_idx}.user_posi":juicio.user_posi, 
         "last_idx":juicio.juicio_idx,
     })
     
