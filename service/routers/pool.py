@@ -1,12 +1,8 @@
 from typing import List
-import pyterrier as pt
 from fastapi import APIRouter
 
 from  model.pools_model import QueryPoolModel, QueryPoolDao
 
-
-if not pt.started():
-        pt.init()
         
 router = APIRouter(
     prefix="/pool",

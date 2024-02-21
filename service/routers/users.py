@@ -1,6 +1,5 @@
 from typing import List, Optional
 
-import pyterrier as pt
 from fastapi import APIRouter
 from model.user_model import UserModel, UserDao
 from scripts.add_user_pools import add_user_pools

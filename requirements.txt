@@ -1,6 +1,5 @@
-fastapi
-uvicorn[standard]
-pymongo[srv]
-python-terrier
+fastapi==0.109.2
+uvicorn[standard]==0.27.1
+pymongo[srv]==4.6.1
 qdrant-client
 PyPDF2

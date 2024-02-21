@@ -1,11 +1,8 @@
 from typing import List
-import pyterrier as pt
 from fastapi import APIRouter
 
 from model.query_model import QueryDao, QueryModel
 
-if not pt.started():
-        pt.init()
         
 router = APIRouter(
     prefix="/query",
