@@ -3,3 +3,4 @@ uvicorn[standard]==0.27.1
 pymongo[srv]==4.6.1
 qdrant-client
 PyPDF2
+rich
