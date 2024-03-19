@@ -27,7 +27,6 @@ def get_by_user_id(user_id:str, queryNum:int):
         return QueryJuiciosModel(**doc['juicios'][queryNum])
     
 
-
 @router.get("/juicios/by/{user_id}")
 def get_juicios_by_user_id(user_id:str):
     return UserPoolDto(**UserPoolDao.find_by_userid(user_id))

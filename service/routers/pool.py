@@ -1,8 +1,7 @@
 from typing import List
 from fastapi import APIRouter
 
-from  model.pools_model import QueryPoolModel, QueryPoolDao
-
+from model.pools_pre_post_model import PrePostQueryPoolDao, PrePostQueryPoolModel
         
 router = APIRouter(
     prefix="/pool",
@@ -10,10 +9,10 @@ router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-@router.get("/all", response_model=List[QueryPoolModel])
+@router.get("/all", response_model=List[PrePostQueryPoolModel])
 def get_queries():
-    return list(QueryPoolDao.findAll())
+    return list(PrePostQueryPoolDao.findAll())
 
-@router.get('/{query_num}', response_model=QueryPoolModel)
+@router.get('/{query_num}', response_model=PrePostQueryPoolModel)
 def get_querie(query_num:int):
-    return QueryPoolDao.find_query_by_query_num(query_num)
+    return PrePostQueryPoolDao.find_query_by_query_num(query_num)
