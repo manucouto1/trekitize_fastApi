@@ -1,8 +1,8 @@
 from typing import Annotated, Any, List, Optional
 from pydantic import BaseModel, Field
-from container import Container
-from model.base_dao import BaseDao
-from model.bsom_object import PyObjectId
+from trekitize_fastApi.container import Container
+from trekitize_fastApi.model.base_dao import BaseDao
+from trekitize_fastApi.model.bsom_object import PyObjectId
 from bson.objectid import ObjectId
 
 class DocModel(BaseModel):
